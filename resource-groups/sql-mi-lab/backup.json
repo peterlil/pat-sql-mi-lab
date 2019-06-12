@@ -1,0 +1,10 @@
+"administratorLoginPassword": {
+    "reference": {
+      "keyVault": {
+        "id": "/subscriptions/05c25b78-003c-49ef-8f02-b24ca4aca086/resourceGroups/sql-mi-lab/providers/Microsoft.KeyVault/vaults/pat-sql-mi-kv"
+      },
+      "secretName": "pladmin"
+    }
+  },
+
+  

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "dtap": {"value": "development"},
+    "ring": {"value": 100},
+    "location": { "value": "West Europe" },
+    "key-vault-name": { "value": "pat-sql-mi-kv" },
+    "tenant-id": { "value": "#[TenantId]#" },
+    "object-id-for-devops-vault-permissions": { "value": "#/subscriptions/[subscriptionId]/resourceGroups/pat-core/providers/Microsoft.KeyVault/vaults/pat-core-key-vault#Secrets#DevOpsAccountObjectId.SecretValueText#" },
+    "object-id-for-secret-creator-vault-permissions": { "value": "#/subscriptions/[subscriptionId]/resourceGroups/pat-core/providers/Microsoft.KeyVault/vaults/pat-core-key-vault#Secrets#SqlMiKvAdminObjectId.SecretValueText#" }
+  }
+}

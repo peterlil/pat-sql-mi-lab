@@ -1,0 +1,124 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "dtap": {
+      "type": "string",
+      "allowedValues": [
+        "production",
+        "user acceptance test",
+        "test",
+        "development"
+      ]
+    },
+    "ring": {
+      "type": "int"
+    },
+    "location": {
+      "type": "string"
+    },
+    "key-vault-name": {
+      "type": "string"
+    },
+    "tenant-id": {
+      "type": "string"
+    },
+    "object-id-for-devops-vault-permissions": {
+      "type": "string"
+    },
+    "object-id-for-secret-creator-vault-permissions": {
+      "type": "string"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.KeyVault/vaults",
+      "name": "[parameters('key-vault-name')]",
+      "apiVersion": "2018-02-14",
+      "location": "[parameters('location')]",
+      "tags": {
+        "dtap": "[parameters('dtap')]"
+      },
+      "properties": {
+        "tenantId": "[parameters('tenant-id')]",
+        "sku": {
+          "name": "standard",
+          "family": "A"
+        },
+        "accessPolicies": [
+          {
+            "tenantId": "[parameters('tenant-id')]",
+            "objectId": "[parameters('object-id-for-devops-vault-permissions')]",
+            "permissions": {
+              "keys": [
+                "encrypt",
+                "decrypt",
+                "wrapKey",
+                "unwrapKey",
+                "sign",
+                "verify",
+                "get",
+                "list",
+                "create",
+                "update",
+                "import",
+                "delete",
+                "backup",
+                "restore",
+                "recover",
+                "purge"
+              ],
+              "secrets": [
+                "get",
+                "list",
+                "set",
+                "delete",
+                "backup",
+                "restore",
+                "recover",
+                "purge"
+              ],
+              "certificates": [
+                "get",
+                "list",
+                "delete",
+                "create",
+                "import",
+                "update",
+                "managecontacts",
+                "getissuers",
+                "listissuers",
+                "setissuers",
+                "deleteissuers",
+                "manageissuers",
+                "recover",
+                "purge"
+              ]
+            }
+          },
+          {
+            "tenantId": "[parameters('tenant-id')]",
+            "objectId": "[parameters('object-id-for-secret-creator-vault-permissions')]",
+            "permissions": {
+              "secrets": [
+                "get",
+                "list",
+                "set",
+                "delete",
+                "backup",
+                "restore",
+                "recover",
+                "purge"
+              ]
+            }
+          }
+        ],
+        "enabledForDeployment": true,
+        "enabledForDiskEncryption": true,
+        "enabledForTemplateDeployment": true
+      }
+    }
+  ],
+  "outputs": {}
+}
