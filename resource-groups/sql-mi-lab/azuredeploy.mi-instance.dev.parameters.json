@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "dtap": {
-            "value": "custom-development"
+            "value": "development"
         },
         "ring": {
             "value": 200
@@ -28,6 +28,9 @@
         },
         "administratorLogin": {
             "value": "pladmin"
+        },
+        "administratorLoginPassword": {
+            "value": "#/subscriptions/[subscriptionId]/resourceGroups/pat-sql-mi-lab/providers/Microsoft.KeyVault/vaults/pat-sql-mi-kv#Secrets#pladmin.SecretValue#"
         },
         "hardwareFamily": {
             "value": "Gen5"

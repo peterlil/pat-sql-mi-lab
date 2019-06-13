@@ -208,10 +208,18 @@ Function GetKeyVaultSecret {
     $secretReturnTypePattern = "(?<=#secrets#[\w\s/\-]+.)[\w\s/-]+(?=#)"
     $secretReturnType = [System.Text.RegularExpressions.Regex]::Match($resourceMacro, $secretReturnTypePattern, 1)
     
-    switch($secretReturnType.Value.ToLower())
-    {
-        "secretvaluetext" {(Get-AzureKeyVaultSecret -ResourceId ($resourceIdMatch.Value) -Name ($secretNameMatch.Value)).SecretValueText}
-        "secretvalue" {(Get-AzureKeyVaultSecret -ResourceId ($resourceIdMatch.Value) -Name ($secretNameMatch.Value)).SecretValue}
+    if ($WhatIf -eq $true) {
+        switch($secretReturnType.Value.ToLower())
+        {
+            "secretvaluetext" {"secretvaluetext"}
+            "secretvalue" {"secretvalue"}
+        }
+    } else {
+        switch($secretReturnType.Value.ToLower())
+        {
+            "secretvaluetext" {(Get-AzureKeyVaultSecret -ResourceId ($resourceIdMatch.Value) -Name ($secretNameMatch.Value)).SecretValueText}
+            "secretvalue" {(Get-AzureKeyVaultSecret -ResourceId ($resourceIdMatch.Value) -Name ($secretNameMatch.Value)).SecretValue}
+        }
     }
 
 }
