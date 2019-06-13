@@ -60,6 +60,7 @@ function deployTemplate($fullPath, $SourceVersion) {
     $matches = [System.Text.RegularExpressions.Regex]::Matches($pfContent, $reFindMacros)
     $matches | ForEach-Object {
         #$_.Value #debug
+        Write-Verbose "Found macro: $($_.Value)"
         $macro = New-Macro -Unparsed $_.Value
         ParseMacro ([ref]$macro)
         #$macro | format-list * #debug
