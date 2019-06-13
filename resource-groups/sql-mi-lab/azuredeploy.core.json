@@ -25,9 +25,6 @@
     },
     "object-id-for-devops-vault-permissions": {
       "type": "string"
-    },
-    "object-id-for-secret-creator-vault-permissions": {
-      "type": "string"
     }
   },
   "variables": {},
@@ -92,22 +89,6 @@
                 "setissuers",
                 "deleteissuers",
                 "manageissuers",
-                "recover",
-                "purge"
-              ]
-            }
-          },
-          {
-            "tenantId": "[parameters('tenant-id')]",
-            "objectId": "[parameters('object-id-for-secret-creator-vault-permissions')]",
-            "permissions": {
-              "secrets": [
-                "get",
-                "list",
-                "set",
-                "delete",
-                "backup",
-                "restore",
                 "recover",
                 "purge"
               ]

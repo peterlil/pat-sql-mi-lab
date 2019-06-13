@@ -87,7 +87,7 @@
                 "administratorLogin": "[parameters('administratorLogin')]",
                 "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
                 "subnetId": "[variables('subnetRefId')]",
-                "storageSizeInGB": "16",
+                "storageSizeInGB": "32",
                 "vCores": "4",
                 "licenseType": "LicenseIncluded",
                 "hardwareFamily": "[parameters('hardwareFamily')]",
