@@ -235,7 +235,15 @@ function ParseResourceMacro {
             switch ($i) {
                 0 { 
                     Write-Verbose "Getting Key Vault secret"
-                    $returnValue = GetKeyVaultSecret $stringToParse
+                    $ErrorMessages = @()
+                    $returnValue = GetKeyVaultSecret $stringToParse -ErrorVariable $ErrorMessages
+                    if ($ErrorMessages)
+                    {
+                        Write-Error "Error while trying to retreive value from Key Vault: $($stringToParse)"
+                        ("##vso[task.setvariable variable=ErrorMessage] {0}" -f ($ErrorMessages -Join "; ") )
+                        Write-Error "$($ErrorMessages -Join "; ")"
+                        exit 1
+                    }
                 }
             }
             $macro.Value.Parsed = $returnValue
