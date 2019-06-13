@@ -27,7 +27,7 @@ $logMsg = "";
 Foreach ($file in $sqlMiParamFiles) {
     $params = ((Get-Content -Raw $file) | ConvertFrom-Json)
     $logMsg = "$($params.parameters.dtap.value) - $file"
-    if( $params.parameters.dtap.value -eq "custom-$dtap" ) {
+    if( $params.parameters.dtap.value -eq "$dtap" ) {
         Write-Host "Found it: $logMsg"
         $item = New-Object -TypeName System.Object
         $item | Add-Member -MemberType NoteProperty -Name Path -Value $file
