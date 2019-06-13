@@ -199,10 +199,12 @@ Function GetKeyVaultSecret {
  
     $resourceIdPattern = "(?<=#)[\w\s/\-.]+(?=#secrets#)" 
     $resourceIdMatch = [System.Text.RegularExpressions.Regex]::Match($resourceMacro, $resourceIdPattern, 1)
-    
+    Write-Verbose "Resource  Id: $($resourceIdMatch.Value)"
+
     $secretNamePattern = "(?<=#secrets#)[\w\s/\-]+(?=.)"
     $secretNameMatch = [System.Text.RegularExpressions.Regex]::Match($resourceMacro, $secretNamePattern, 1)
-    
+    Write-Verbose "Secret name: $($secretNameMatch)"
+
     $secretReturnTypePattern = "(?<=#secrets#[\w\s/\-]+.)[\w\s/-]+(?=#)"
     $secretReturnType = [System.Text.RegularExpressions.Regex]::Match($resourceMacro, $secretReturnTypePattern, 1)
     
@@ -250,7 +252,6 @@ function ParseResourceMacro {
             break
         }
     }
-
 }
 
 function ParseMacro {
