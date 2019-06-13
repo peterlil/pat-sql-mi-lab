@@ -236,7 +236,7 @@ function ParseResourceMacro {
                 0 { 
                     Write-Verbose "Getting Key Vault secret"
                     $ErrorMessages = @()
-                    $returnValue = GetKeyVaultSecret $stringToParse -ErrorVariable $ErrorMessages
+                    $returnValue = GetKeyVaultSecret $stringToParse -ErrorVariable $ErrorMessages -ErrorAction SilentlyContinue
                     if ($ErrorMessages)
                     {
                         Write-Error "Error while trying to retreive value from Key Vault: $($stringToParse)"
