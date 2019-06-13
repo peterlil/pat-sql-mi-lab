@@ -50,10 +50,10 @@ function deployTemplate($fullPath, $SourceVersion) {
     # Load the parameter file and set parameter(s)
     Write-Verbose "Reading file $fullPath"
     $pfContent = (Get-Content -Raw $fullPath) # pf = Parameter File
-    Write-Verbose "..done"
 
     #$pfContent #debug
     
+    Write-Verbose "Finding macros"
     # Loop through, find all macros and parse them
     $reFindMacros = "(?<="")#[\w\s/\[\]#-.]+#(?="")"
     $parsedMacros = @()
@@ -66,11 +66,13 @@ function deployTemplate($fullPath, $SourceVersion) {
         $parsedMacros += $macro
     }
     
+    Write-Verbose "Replacing macros"
     # Replace all macros
     $parsedMacros | ForEach-Object {
         $pfContent = $pfContent.Replace($_.Unparsed, $_.Parsed)
     }
     
+    Write-Verbose "Creating json object"
     # Convert final parameter file to json object
     $params = ($pfContent | ConvertFrom-Json)
     if(!$params) {
@@ -78,8 +80,9 @@ function deployTemplate($fullPath, $SourceVersion) {
         exit
     }
 
-     # Prepare the TemplateParameterObject
-     $dynamicParams = @{ }
+    Write-Verbose "Preparing parameter object"
+    # Prepare the TemplateParameterObject
+    $dynamicParams = @{ }
     $params.parameters | Get-ObjectMembers | ForEach-Object {
         $dynamicParams.Add($_.Key, $_.value)
     }
