@@ -48,7 +48,9 @@ function deployTemplate($fullPath, $SourceVersion) {
     Write-Verbose "Template file name: $($jsonTemplateFileName)"
 
     # Load the parameter file and set parameter(s)
+    Write-Verbose "Reading file $fullPath"
     $pfContent = (Get-Content -Raw $fullPath) # pf = Parameter File
+    Write-Verbose "..done"
 
     #$pfContent #debug
     
