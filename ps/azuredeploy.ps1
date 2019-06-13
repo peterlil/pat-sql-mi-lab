@@ -227,13 +227,14 @@ function ParseResourceMacro {
 
     for ($i=0; $i -lt $ResourceProviders.Count; $i++) {
         
-        # Find global macro in string
+        # Find resource provider in string
         $match = [System.Text.RegularExpressions.Regex]::Match($stringToParse, $ResourceProviders[$i], 1)
         if ($match.Success -eq $true)
         {
             $returnValue = ""
             switch ($i) {
                 0 { 
+                    Write-Verbose "Getting Key Vault secret"
                     $returnValue = GetKeyVaultSecret $stringToParse
                 }
             }
