@@ -248,8 +248,10 @@ function ParseMacro {
     Param (
         [parameter(mandatory=$true)] [ref]$macro
     )
+    Write-Verbose "Parsing globals"
     ParseGlobalMacro ([ref]($macro.Value))
     #$macro.Value | Format-List * #debug
+    Write-Verbose "Parsing resources"
     ParseResourceMacro ([ref]$macro.Value)
     #$macro.Value | Format-List * #debug
 }
